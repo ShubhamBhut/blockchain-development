@@ -5,14 +5,14 @@
 
 
 //first thing is to define the version of solidity
-//It can also be defines in range eg. >=0.6.1 <0.8.0
+//It can also be defined in range eg. >=0.6.1 <0.8.0
 pragma solidity ^0.6.6; //this indicates use of a specific version of solidity
 
 contract Learning {
 
     string value;
     
-    //the code inside constructor will get executed first
+    //the code inside constructor will get executed before any other code inside the contract
     constructor() public {
         value = "Default value";
         state = State.Waiting;
