@@ -140,5 +140,43 @@ contract Learning {
         address _buyer,
         uint256 _amount
     );
-
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // now a basic idea of how ERC20 tokens work
+
+contract ERC20Token {
+    string name;
+    mapping(address => uint256) public balances;
+
+    function mint() public {
+        balances[tx.origin] += 1;
+        }
+    }
+
+contract MyContract{
+    
+    address payable wallet2;
+    address public token;
+
+    constructor(address payable _wallet2, address _token) public {
+        wallet2 = _wallet2;
+        token = _token;
+    }
+
+    fallback() external payable{
+        buyToken2();
+    }
+
+    function buyToken2() public payable{
+        ERC20Token _token= ERC20Token(address(token));
+        _token.mint();
+        wallet2.transfer(msg.value);
+    }
+
+    //solidity also supports inheritence, but I believe self practice will be best way to learn it
+    //so refer the docs and start writing your contracts.
+}
+
+
