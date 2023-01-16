@@ -12,10 +12,12 @@ contract Learning {
 
     string value;
     
-    //the code inside constructor will get executed before any other code inside the contract
-    constructor() public {
+    //the code inside constructor will get executed first
+    constructor(address payable _wallet) public {
         value = "Default value";
         state = State.Waiting;
+        owner = msg.sender; //the deploying account will be owner, check mapping section down below
+        wallet = _wallet; //for dealing with ETH. check that section below
     }
 
     // the following is function in solidity. public is the visibility status, view is type of action, check docs for more info
@@ -67,11 +69,76 @@ contract Learning {
 
     uint256 public peopleCount;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //mapping
+    //mapping and modifiers
     //mapping is also a data structure but very important here. its like a key,value pair
 
-    mapping(uint256 => Person) public people_mapping;
+    uint256 peopleCount2;
+
+    struct Person2 {
+        uint id;
+        string _firstName;
+        string _lastName;
+    }
+
+    mapping(uint256 => Person2) public people_mapping;
+
+    //onlyOwner modifier allows only owner address to use function
+
+    address owner; //address is anothr datatype stands for account or wallet address
+
+    //Function Modifiers are used to modify the behaviour of a function. For example to add a prerequisite to a function
+    modifier onlyOwner() {
+        require(msg.sender == owner);
+        _; //consider this something like syntax
+    }
+
+    //msg is special global variable which displays metadata of transaction. 
+    //There are many other special functions and variables in solidity and I would highly recommend to read about them at -
+    //https://docs.soliditylang.org/en/develop/units-and-global-variables.html#special-variables-and-functions
+
+    function addPerson2(string memory _firstName, string memory _lastName) public onlyOwner{
+
+        peopleCount2 += 1;
+        people_mapping[peopleCount2] = Person2(peopleCount2, _firstName, _lastName);
+
+    } 
+
+    // To make a timeout in contract, solidity uses epoch time, google if you wanna know more
+    uint256 openingTime = 1673834726;
+
+    modifier onlyWhileOpen() {
+        require(block.timestamp >= openingTime); //every block has its time in solidity, read more on docs
+        _;
+    }
+
+ //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //dealing in ETH
+
+    mapping(address => uint256) public balances;
+    address payable wallet;
+
+     
+
+    function buyToken() public payable{
+        //buy a token
+        balances[msg.sender] += 1;
+        //send ether to wallet
+        wallet.transfer(msg.value);
+
+        emit Purchase(msg.sender, 1);
+
+    }
+    //fallback funciton, quite used in ICOs combined with events   
+    fallback() external payable{
+        buyToken();
+    }
+
+    event Purchase(
+        address _buyer,
+        uint256 _amount
+    );
 
 }
