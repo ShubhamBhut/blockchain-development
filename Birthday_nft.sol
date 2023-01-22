@@ -1,3 +1,5 @@
+// The contracted had been deployed and verifird at - https://goerli.etherscan.io/address/0x6dce2dbbb86a61253d623c7a2857282072a87e5f
+
 //Instructions to get your birthday gift NFT
 // 1. You would need a metamask account, add the firefox addon and sign up
 // 2. send your account address to Napoleon to get your 1st gift, 0.4 goerli ETH, you would need that
@@ -92,7 +94,6 @@ contract NFT is ERC721, Ownable {
         return baseUri;
     }
 }
-
 
 //Incase you wanna get basic idea of solidity, you can checkout - 
 //https://github.com/ShubhamBhut/web3/blob/main/Learning.sol
