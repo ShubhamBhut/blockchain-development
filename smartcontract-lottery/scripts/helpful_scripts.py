@@ -3,6 +3,7 @@ from brownie import (
     network,
     config,
     MockV3Aggregator,
+    VRFCoordinatorMock,
     Contract
 )
 
@@ -25,7 +26,7 @@ def get_account(index=None, id=None):
         return accounts[0]
     return accounts.add(config["wallets"]["from_key"])
 
-contract_to_mock = {"eth_usd_price_feed": MockV3Aggregator, "vrf_coordinator": }
+contract_to_mock = {"eth_usd_price_feed": MockV3Aggregator, "vrf_coordinator": VRFCoordinatorMock }
 
 def get_contract(contract_name):
     """
