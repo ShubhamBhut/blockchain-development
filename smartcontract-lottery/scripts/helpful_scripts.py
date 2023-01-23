@@ -25,7 +25,7 @@ def get_account(index=None, id=None):
         return accounts[0]
     return accounts.add(config["wallets"]["from_key"])
 
-contract_to_mock = {"eth_usd_price_feed": MockV3Aggregator}
+contract_to_mock = {"eth_usd_price_feed": MockV3Aggregator, "vrf_coordinator": }
 
 def get_contract(contract_name):
     """

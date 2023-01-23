@@ -4,7 +4,7 @@ from brownie import Lottery
 
 def deploy_lottery():
     account = get_account()
-    lottery = Lottery.deploy(get_contract("eth_usd_price_feed").adress)
+    lottery = Lottery.deploy(get_contract("eth_usd_price_feed").adress get_contract("vrf_coordinator").address)    
 
 
 def main():
