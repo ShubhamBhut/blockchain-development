@@ -8,10 +8,15 @@ compiler:
       - "@openzeppelin=OpenZeppelin/openzeppelin-contracts@3.4.0"
 networks:
   default: development
+  development:
+    keyhash: "0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311" 
+    fee: 100000000000000000
   goerli:
     eth_usd_price_feed: "0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e"
-    vrf_coordinator: '0x2Ca8E0C643bDe4C2E08ab1fA0da3401AdAD7734D'
+    vrf_coordinator: "0x2bce784e69d2Ff36c71edcB9F88358dB0DfB55b4"
     link_token: '0x326C977E6efc84E512bB9C30f76E30c160eD06FB'
+    keyhash: "0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311" 
+    verify: true
   mainnet-fork:
     eth_usd_price_feed: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419'
 wallets:
