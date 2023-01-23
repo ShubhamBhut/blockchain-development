@@ -84,7 +84,7 @@ contract Lottery is VRFConsumerBase, Ownable {
 		recentWinner = players[indexOfWinner];
 		recentWinner.transfer(address(this).balance);
 
-		//Rest the lottery
+		//Reset the lottery
 		players = new address payable[](0);
 		lottery_state = LOTTERY_STATE.CLOSED;
 		randomness = _randomness;
