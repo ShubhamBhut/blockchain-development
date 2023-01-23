@@ -28,7 +28,13 @@ def enter_lottery():
     value  = lottery.getEntranceFee() + 100000000
     tx = lottery.enter({"from": account, "value": value})
     tx.wait(1)
-    print("You have successfully entered the lottery")
+    print("You have successfully entered the lottery!")
+
+def end_lottery():
+    account = get_account()
+    lottery = Lottery[-1]
+    #first we will have to fund the contract with LINK as out endLottery function requires LINK to get random no.
+    tx = Lottery
 
 def main():
     deploy_lottery()
