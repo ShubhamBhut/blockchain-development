@@ -1,5 +1,6 @@
-from scripts.helpful_scripts import get_account, get_contract
+from scripts.helpful_scripts import get_account, get_contract, fund_with_link
 from brownie import Lottery, network, config
+import time
 
 
 def deploy_lottery():
@@ -34,10 +35,19 @@ def end_lottery():
     account = get_account()
     lottery = Lottery[-1]
     #first we will have to fund the contract with LINK as out endLottery function requires LINK to get random no.
-    tx = Lottery
+    tx = fund_with_link(lottery.address)
+    tx.wait(1) #note that we don't relly need tx.wait here as we already implemented it in fund_with_link function
+               #but did it just for habit and anyway
+    ending_transaction = lottery.endLottery({"from": account})
+    ending_transaction.wait(1)
+    time.sleep(60) #we would have to wait for node to respond with a random no.
+    print(f"{lottery.recentWinner()} is the new Winner!")
+
+
 
 def main():
     deploy_lottery()
     start_lottery()
     enter_lottery()
+    end_lottery()
 
