@@ -49,3 +49,16 @@ def test_can_end_lottery():
     lottery.endLottery({"from": account})
     assert lottery.lottery_state() == 2 #2 is CALCUALTING_WINNER STATE
 
+def test_can_pick_winner_correctly():
+    #Arrange
+    if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
+        pytest.skip()
+    lottery = deploy_lottery()
+    account = get_account()
+    lottery.startLottery({"from":account})
+    lottery.enter({"from": account, "value": lottery.getEntranceFee()})
+    lottery.enter({"from": get_account(index=1), "value": lottery.getEntranceFee()})
+    lottery.enter({"from": get_account(index=2), "value": lottery.getEntranceFee()})
+    fund_with_link(lottery)
+
+
