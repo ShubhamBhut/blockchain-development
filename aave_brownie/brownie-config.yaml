@@ -13,7 +13,7 @@ networks:
     lending_pool_addresses_provider: '0x5E52dEc931FFb32f609681B8438A51c675cc232d'
   mainnet-fork:
     weth_token: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
-    lending_pool_addresses_provider: '0xC911B590248d127aD18546B186cC6B324e99F02c'
+    lending_pool_addresses_provider: '0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5'
   mainnett:
     weth_token: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
 wallets:
