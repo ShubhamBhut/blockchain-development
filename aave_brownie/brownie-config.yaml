@@ -11,9 +11,14 @@ networks:
   goerli:
     weth_token: '0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6'
     lending_pool_addresses_provider: '0x5E52dEc931FFb32f609681B8438A51c675cc232d'
+    dai_usd_price_feed: '0x0d79df66BE487753B02D015Fb622DED7f0E9798d'
+    eth_usd_price_feed: '0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e'
+    dai_token: '0x6b175474e89094c44da98b954eedeac495271d0f'
   mainnet-fork:
     weth_token: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
     lending_pool_addresses_provider: '0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5'
+    dai_eth_price_feed: '0x773616E4d11A78F511299002da57A0a94577F1f4'
+    dai_token: '0x6b175474e89094c44da98b954eedeac495271d0f'
   mainnett:
     weth_token: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
 wallets:

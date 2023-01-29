@@ -43,7 +43,8 @@ def get_borrowable_data(lending_pool, account):
     print(f"You can borrow {available_borrow_eth} worth of ETH.")
     return (float(available_borrow_eth), float(total_debt_eth))
 
-
+def get_asset_price(price_feed_address):
+    pass
 
 
 
@@ -71,3 +72,11 @@ def main():
 
     # Borrowning process
     borrowable_eth, total_debt =  get_borrowable_data(lending_pool, account)
+    print("Let's borrow!")
+    #DAI in terms of ether
+    if network.show_active() == 'goerli':
+        dai_usd_price = get_asset_price(config['networks'][network.show_active()]['dai_eth_price_feed'])
+        eth_usd_price = get_asset_price(config['networks'][network.show_active()]['dai_eth_price_feed'])
+        dai_eth_price =  dai_usd_price / eth_usd_price
+    else:
+        dai_eth_price = get_asset_price(config['networks'][network.show_active()]['dai_eth_price_feed'])
