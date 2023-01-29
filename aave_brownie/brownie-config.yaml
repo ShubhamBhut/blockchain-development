@@ -10,9 +10,11 @@ dotenv: .env
 networks:
   goerli:
     weth_token: '0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6'
+    lending_pool_addresses_provider: '0x5E52dEc931FFb32f609681B8438A51c675cc232d'
   mainnet-fork:
     weth_token: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
-  mainent:
+    lending_pool_addresses_provider: '0xC911B590248d127aD18546B186cC6B324e99F02c'
+  mainnett:
     weth_token: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
 wallets:
   from_key: ${PRIVATE_KEY}
