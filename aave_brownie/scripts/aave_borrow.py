@@ -11,8 +11,16 @@ def get_lending_pool():
     lending_pool = interface.ILendingPool(lending_pool_address)
     return lending_pool
     
-def approve_erc20():
-    pass
+def approve_erc20(amount, spender, erc20_address, account):
+    print("Approving ERC20 token.....")
+    #ABI
+    erc20 = interface.IERC20(erc20_address)
+    tx = erc20.approve(spender, amount, {"from": account})
+    tx.wait(1)
+    print("Approved!")
+    return tx
+    
+amount = 0.1 * 10**18
 
 def main():
     account = get_account()
@@ -25,6 +33,10 @@ def main():
     print(lending_pool)
     
     #Approve of sending out ERC20 tokens
-    approve_erc20()
+    approve_erc20(amount, lending_pool.address, erc20_address, account)
+    print("Depositing...")
+    tx = lending_pool.deposit(erc20_address, amount, account.address, 0, {"from": account})
+    tx.wait(1)
+    print("Deposited!")
 
 
