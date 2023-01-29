@@ -3,3 +3,8 @@
 2. Borrow some asset from ETH as collateral.
 3. Sell that borrowed asset (Short selling).
 4. Repay the borrowed assets.
+
+Testing:
+
+Integration test: Goerli
+UNit tests: Mainnet-fork
