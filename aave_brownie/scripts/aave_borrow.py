@@ -11,6 +11,8 @@ def get_lending_pool():
     lending_pool = interface.ILendingPool(lending_pool_address)
     return lending_pool
     
+def approve_erc20():
+    pass
 
 def main():
     account = get_account()
@@ -21,6 +23,8 @@ def main():
     #Address
     lending_pool = get_lending_pool()
     print(lending_pool)
-
+    
+    #Approve of sending out ERC20 tokens
+    approve_erc20()
 
 
