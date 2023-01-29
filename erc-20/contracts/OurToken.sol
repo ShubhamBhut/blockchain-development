@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract OurToken is ERC20 {
-    constructor(uint256 initialSupply) ERC20("Gold", "GLD") {
+    constructor(uint256 initialSupply) ERC20("Arabian Token", "PRI") {
         _mint(msg.sender, initialSupply);
     }
 }

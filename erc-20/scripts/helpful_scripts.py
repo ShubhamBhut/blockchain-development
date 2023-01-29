@@ -1,86 +1,20 @@
-from brownie import (
-    accounts,
-    network,
-    config,
-    MockV3Aggregator,
-    VRFCoordinatorMock,
-    LinkToken,
-    Contract,
-    interface,
-)
+from brownie import accounts, network, config
 
-FORKED_LOCAL_ENVIRONMENTS = ["mainnet-fork", "mainnet-fork-dev"]
-LOCAL_BLOCKCHAIN_ENVIRONMENTS = ["development", "ganache-local"]
+LOCAL_BLOCKCHAIN_ENVIRONMENTS = [
+    "development",
+    "ganache",
+    "hardhat",
+    "local-ganache",
+    "mainnet-fork",
+]
 
 
 def get_account(index=None, id=None):
-    # accounts[0]
-    # accounts.add("env")
-    # accounts.load("id")
     if index:
         return accounts[index]
+    if network.show_active() in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
+        print(accounts[0].balance())
+        return accounts[0]
     if id:
         return accounts.load(id)
-    if (
-        network.show_active() in LOCAL_BLOCKCHAIN_ENVIRONMENTS
-        or network.show_active() in FORKED_LOCAL_ENVIRONMENTS
-    ):
-        return accounts[0]
     return accounts.add(config["wallets"]["from_key"])
-
-
-contract_to_mock = {
-    "eth_usd_price_feed": MockV3Aggregator,
-    "vrf_coordinator": VRFCoordinatorMock,
-    "link_token": LinkToken,
-}
-
-
-def get_contract(contract_name):
-    """
-    This function will grab contract addresses from brownie config if defined, otherwise it will deploy a mock version
-    of that contract and return that mock contract.
-        Args:
-            contract_name (string)
-        Returns:
-            brownie.network.contracts.ProjectContract - the most recently deployed version of this contract
-    """
-    contract_type = contract_to_mock[contract_name]
-    if network.show_active() in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
-        if len(contract_type) <= 0:
-            # MockV3Aggregator.length
-            deploy_mocks()
-        contract = contract_type[-1]
-        # Above line is just equal to MockV3Aggregator[-1]
-    else:
-        contract_address = config["networks"][network.show_active()][contract_name]
-        contract = Contract.from_abi(
-            contract_type._name, contract_address, contract_type.abi
-        )
-    return contract
-
-
-DECIMALS = 8
-INITIAL_VALUE = 200000000000
-
-
-def deploy_mocks(decimals=DECIMALS, initial_value=INITIAL_VALUE):
-    account = get_account()
-    mock_pricefeed = MockV3Aggregator.deploy(decimals, initial_value, {"from": account})
-    link_token = LinkToken.deploy({"from": account})
-    VRFCoordinatorMock.deploy(link_token.address, {"from": account})
-    print("Deployed!")
-
-
-def fund_with_link(
-    contract_address, account=None, link_token=None, amount=100000000000000000
-):  # 0.1 LINK
-    account = account if account else get_account()
-    link_token = link_token if link_token else get_contract("link_token")
-    # above two lines are saying to use input account and link_token if given in input otherwise use get_account()
-    # and get_contract() to get values of account and link_token
-    link_token_contract = interface.LinkTokenInterface(link_token.address)
-    tx = link_token_contract.transfer(contract_address, amount, {"from": account})
-    tx.wait(1)
-    print("Fund contract!")
-    return tx

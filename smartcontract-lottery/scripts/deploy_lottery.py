@@ -49,7 +49,6 @@ def end_lottery():
     time.sleep(60)  # we would have to wait for node to respond with a random no.
     print(f"{lottery.recentWinner()} is the new Winner!")
 
-
 def main():
     deploy_lottery()
     start_lottery()
