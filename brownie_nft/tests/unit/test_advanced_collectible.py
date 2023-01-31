@@ -18,7 +18,7 @@ def test_can_create_advanced_collectible():
         pytest.skip("Only for local testing")
     # Act
     advanced_collectible, creation_transaction = deploy_and_create()
-    requestId = creation_transaction.events["requestedCollectible"]["requestId"]
+    requestId = creation_transaction.events["requestedCollectable"]["requestId"]
     random_number = 777
     get_contract("vrf_coordinator").callBackWithRandomness(
         requestId, random_number, advanced_collectible.address, {"from": get_account()}
