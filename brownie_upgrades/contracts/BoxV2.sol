@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-contract Box {
+contract BoxV2 {
 	
 	uint256 private value;
 
