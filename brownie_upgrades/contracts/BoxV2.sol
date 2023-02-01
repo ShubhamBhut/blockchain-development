@@ -17,4 +17,9 @@ contract Box {
 		return value;
 		
 	}
+
+	function increment() public {
+		value = value + 1;
+		emit valueChanged(value);
+	}
 }
