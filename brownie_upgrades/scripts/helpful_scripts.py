@@ -31,11 +31,13 @@ def encode_function_data(initializer=None, *args):
     Returns:
         [bytes]: Return the encoded bytes.
     """
-    if not len(args): args = b''
+    if not len(args):
+        args = b""
 
-    if initializer: return initializer.encode_input(*args)
+    if initializer:
+        return initializer.encode_input(*args)
 
-    return b''
+    return b""
 
 
 def upgrade(
@@ -68,4 +70,4 @@ def upgrade(
             )
         else:
             transaction = proxy.upgradeTo(newimplementation_address, {"from": account})
-    return 
+    return
